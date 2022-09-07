@@ -36,25 +36,25 @@ class API {
             .then(this._getJsonOrError)
     }
 
-    setUserData(data) {
+    setUserData(name, about) {
         return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
             headers: this._getHeaders(),
             body: JSON.stringify({
-                name: data.userName,
-                about: data.career
+                name,
+                about
             })
         })
             .then(this._getJsonOrError)
     }
 
-    createСard(data) {
+    createСard({name, url}) {
         return fetch(`${this._url}/cards`, {
             method: 'POST',
             headers: this._getHeaders(),
             body: JSON.stringify({
-                name: data.name,
-                link: data.link
+                name: name,
+                link: url
             }),
         })
             .then(this._getJsonOrError)
@@ -68,29 +68,20 @@ class API {
             .then(this._getJsonOrError)
     }
 
-    likeCard(id) {
+    changeLikeCardStatus(id, isLiked) {
         return fetch(`${this._url}/cards/${id}/likes`, {
-            method: 'PUT',
+            method: isLiked ? 'PUT' : 'DELETE',
             headers: this._getHeaders(),
         })
             .then(this._getJsonOrError)
     }
 
-    nolikeCard(id) {
-        return fetch(`${this._url}/cards/${id}/likes`, {
-            method: 'DELETE',
-            headers: this._getHeaders(),
-        })
-            .then(this._getJsonOrError)
-    }
-
-
-    setAvatar(data) {
+    setAvatar(avatar) {
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._getHeaders(),
             body: JSON.stringify({
-                avatar: data.avatar
+                avatar
             })
         })
             .then(this._getJsonOrError)

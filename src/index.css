@@ -53,6 +53,7 @@
 @import url(./blocks/photos/__like/photos__like-number.css);
 @import url(./blocks/photos/__delete/photos__delete-hide.css);
 @import url(./blocks/photos/__container/photos__container.css);
+@import url(./blocks/photos/__delete/photos__delete-visible.css);
 
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__text/footer__text.css);
