@@ -1,8 +1,6 @@
-
 import React from 'react'
 
-
-function PopupWithForm({ name, title, isOpen, onClose, onSubmit, buttonText, children }) {
+function PopupWithForm({ name, title, isOpen, onClose, onSubmit, buttonText, isLoading, buttonTextLoading, children }) {
     return (
         <div className={`popup popup_type_${name} ${isOpen && 'popup_is-open'}`} >
             <div className="popup__content">
@@ -17,12 +15,11 @@ function PopupWithForm({ name, title, isOpen, onClose, onSubmit, buttonText, chi
                     action="#"
                     className="popup__form"
                     name={name}
-                    noValidate
                     onSubmit={onSubmit}
                 >
                     {children}
                     <button type="submit" className="popup__button">
-                        {buttonText}
+                        {isLoading ? buttonTextLoading : buttonText}
                     </button>
                 </form>
             </div>

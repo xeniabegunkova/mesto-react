@@ -13,7 +13,7 @@ function ImagePopup(props) {
                     onClick={props.onClose}
                 ></button>
             </div>
-            </div >
+        </div >
     )
 }
 

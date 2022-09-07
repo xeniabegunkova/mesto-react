@@ -1,30 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import PopupWithForm from './PopupWithForm';
+import { useForm } from '../hooks/useForm';
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
 
-    const [name, setName] = useState('');
-    const [url, setUrl] = useState('');
-
-    function handleChangeName(e) {
-        setName(e.target.value);
-    }
-
-    function handleChangeUrl(e) {
-        setUrl(e.target.value);
-    }
+    const {values, handleChange, setValues} = useForm({});
 
     function handleSubmit(e) {
         e.preventDefault();
         onAddPlace({
-            name,
-            url
+            name: values.name,
+            url: values.link
         });
-        onClose();
     }
 
+    useEffect(() => {
+        setValues({});
+    }, [isOpen]); //очищаем инпуты
+
     return (
-        <PopupWithForm name="change-card-popup" title="Новое место" buttonText="Создать" isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
+        <PopupWithForm
+            name="change-card-popup"
+            title="Новое место"
+            buttonText="Создать"
+            buttonTextLoading="Создать..."
+            isOpen={isOpen}
+            onClose={onClose}
+            onSubmit={handleSubmit}
+            isLoading={isLoading}
+        >
             <fieldset className="popup__fieldset">
                 <label className="popup__field">
                     <input
@@ -36,8 +40,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
                         id="locality"
                         minLength="2"
                         maxLength="30"
-                        onChange={handleChangeName}
-                        value={name || ''}
+                        onChange={handleChange}
+                        value={values.name || ''}
                     />
                     <span className="popup__input-error locality-input-error">Вы пропустили это поле</span>
                 </label>
@@ -49,8 +53,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
                         required
                         className="popup__input popup__input_sign_link"
                         placeholder="Ссылка на картинку"
-                        onChange={handleChangeUrl}
-                        value={url || ''}
+                        onChange={handleChange}
+                        value={values.link || ''}
                     />
                     <span className="popup__input-error link-input-error">Вы пропустили это поле</span>
                 </label>
@@ -59,3 +63,5 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 }
 
 export default AddPlacePopup;
+
+//исправить
