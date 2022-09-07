@@ -97,11 +97,11 @@ function App() {
         setCards((cards) => cards.filter((item) => { //создайте копию массива, исключив из него удалённую карточку
           return item._id !== card._id
         }))
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
       })
-    closeAllPopups();
   };
 
   function handleUpdateUser(data) {
@@ -109,6 +109,7 @@ function App() {
     api.setUserData(data.name, data.about)
       .then((data) => {
         setCurrentUser(data);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
@@ -116,7 +117,6 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       })
-    closeAllPopups();
   }
 
   function handleUpdateAvatar(data) {
@@ -124,6 +124,7 @@ function App() {
     api.setAvatar(data)
       .then((dataAvatar) => {
         setCurrentUser(dataAvatar)
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
@@ -131,7 +132,6 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       })
-    closeAllPopups();
   }
 
   function handleUpdateCard(card) {
@@ -139,6 +139,7 @@ function App() {
     api.createСard(card)
       .then((newCard) => {
         setCards([newCard, ...cards]);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
@@ -146,7 +147,6 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       })
-    closeAllPopups();
   }
 
   return (
